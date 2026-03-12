@@ -1,830 +1,1336 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwiftCart | Skeuo-Neumorphic</title>
+    <title>SwiftCart | Premium Accessories Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            orange: '#FF6B00',
+                            dark: '#1A1A1A',
+                            light: '#FFF5ED',
+                            accent: '#FF8533',
+                        }
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'fade-in': 'fadeIn 0.8s ease-out',
+                        'scale-in': 'scaleIn 0.4s ease-out',
+                    },
+                    keyframes: {
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        scaleIn: {
+                            '0%': { transform: 'scale(0.9)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            /* Warm, comfortable palette */
-            --bg-color: #f0ebe3;
-            --bg-warm: #f5f0e8;
-            --shadow-light: #ffffff;
-            --shadow-dark: #d4cfc7;
-            --accent-warm: #e07b39;
-            --accent-soft: #f4a261;
-            --text-dark: #4a4036;
-            --text-medium: #6b5d4f;
-            --text-light: #9a8b7a;
-            --success: #7fb069;
-            --trust: #5b8a72;
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
-
-        body {
-            font-family: 'Outfit', sans-serif;
-            background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(ellipse at top left, rgba(244, 162, 97, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at bottom right, rgba(123, 176, 105, 0.06) 0%, transparent 50%),
-                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.015'/%3E%3C/svg%3E");
-            color: var(--text-dark);
-            line-height: 1.6;
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 50%, #FF6B00 100%);
         }
-
-        /* Softer NEUMORPHIC BASE */
-        .neu-flat {
-            background: var(--bg-color);
-            box-shadow: 
-                8px 8px 16px var(--shadow-dark), 
-                -8px -8px 16px var(--shadow-light);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            transition: all 0.3s ease;
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #FF6B00 0%, #FF8533 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
-        .neu-pressed {
-            background: var(--bg-color);
-            box-shadow: 
-                inset 5px 5px 10px var(--shadow-dark), 
-                inset -5px -5px 10px var(--shadow-light);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        /* Gentle BUTTONS */
-        .neu-btn {
-            background: linear-gradient(145deg, var(--bg-warm), var(--bg-color));
-            box-shadow: 
-                4px 4px 8px var(--shadow-dark), 
-                -4px -4px 8px var(--shadow-light);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            transition: all 0.2s ease;
-            color: var(--text-medium);
+        
+        .card-hover:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgba(255, 107, 0, 0.25);
         }
-
-        .neu-btn:hover {
-            box-shadow: 
-                6px 6px 12px var(--shadow-dark), 
-                -6px -6px 12px var(--shadow-light);
-            color: var(--accent-warm);
-            transform: translateY(-1px);
-        }
-
-        .neu-btn:active, .neu-btn.active {
-            box-shadow: 
-                inset 3px 3px 6px var(--shadow-dark), 
-                inset -3px -3px 6px var(--shadow-light);
-            color: var(--accent-warm);
-            transform: scale(0.98);
-        }
-
-        .neu-btn-primary {
-            background: linear-gradient(145deg, var(--accent-soft), var(--accent-warm));
-            box-shadow: 
-                5px 5px 12px rgba(224, 123, 57, 0.25), 
-                -5px -5px 12px var(--shadow-light),
-                inset 1px 1px 2px rgba(255, 255, 255, 0.4),
-                inset -1px -1px 2px rgba(0, 0, 0, 0.1);
-            color: white;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.15);
-            border: none;
-            transition: all 0.2s ease;
-        }
-
-        .neu-btn-primary:hover {
-            box-shadow: 
-                7px 7px 16px rgba(224, 123, 57, 0.3), 
-                -5px -5px 12px var(--shadow-light),
-                inset 1px 1px 2px rgba(255, 255, 255, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .neu-btn-primary:active {
-            box-shadow: 
-                inset 3px 3px 8px rgba(0,0,0,0.2), 
-                inset -2px -2px 6px rgba(255,255,255,0.3);
-            transform: translateY(0);
-        }
-
-        /* Softer SKEUOMORPHIC TEXTURES */
-        .metal-plate {
-            background: linear-gradient(135deg, #e8e4de 0%, #dcd6ce 100%);
-            position: relative;
+        
+        .image-reveal {
             overflow: hidden;
-            box-shadow: 
-                8px 8px 16px var(--shadow-dark), 
-                -8px -8px 16px var(--shadow-light),
-                inset 1px 1px 0px rgba(255,255,255,0.6),
-                inset -1px -1px 0px rgba(0,0,0,0.05);
-            border: 1px solid rgba(255, 255, 255, 0.3);
         }
-
-        .metal-plate::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 2px,
-                rgba(255,255,255,0.08) 2px,
-                rgba(255,255,255,0.08) 4px
-            );
-            pointer-events: none;
+        
+        .image-reveal img {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .paper-texture {
-            background-color: #fdfcfa;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' result='noise'/%3E%3CfeDiffuseLighting in='noise' lighting-color='white' surfaceScale='2'%3E%3CfeDistantLight azimuth='45' elevation='60'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)' opacity='0.4'/%3E%3C/svg%3E");
-            box-shadow: 
-                inset 0 0 30px rgba(0,0,0,0.02),
-                3px 6px 20px rgba(0,0,0,0.08);
-            border: 1px solid rgba(0,0,0,0.04);
+        
+        .image-reveal:hover img {
+            transform: scale(1.1);
         }
-
-        .wood-shelf {
-            background: linear-gradient(to bottom, #c9a87c, #a08060);
-            background-image: 
-                repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0,0,0,0.03) 40px, rgba(0,0,0,0.03) 45px),
-                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='wood'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02 0.1' numOctaves='3' result='noise'/%3E%3CfeColorMatrix type='saturate' values='0.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23wood)' opacity='0.3'/%3E%3C/svg%3E");
-            box-shadow: 
-                0 12px 24px rgba(0,0,0,0.15),
-                inset 0 2px 4px rgba(255,255,255,0.3);
-            height: 16px;
-            border-radius: 8px;
-            border-bottom: 2px solid #8b6f4e;
-        }
-
-        /* COMPONENTS */
-        .product-image-well {
-            background: var(--bg-color);
-            box-shadow: 
-                inset 4px 4px 8px var(--shadow-dark), 
-                inset -4px -4px 8px var(--shadow-light);
-            border-radius: 16px;
-            padding: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .product-image-well img {
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .nav-bar {
-            background: rgba(240, 235, 227, 0.92);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255,255,255,0.5);
-            box-shadow: 0 4px 20px rgba(139, 125, 107, 0.15);
-        }
-
-        .screen-glass {
-            background: #2a2833;
-            box-shadow: 
-                inset 0 4px 10px rgba(0,0,0,0.4),
-                0 2px 0 rgba(255,255,255,0.4);
-            border: 3px solid #3a3845;
-            border-radius: 12px;
-        }
-
-        /* Cart Drawer */
-        .cart-drawer {
+        
+        .cart-sidebar {
             transform: translateX(100%);
-            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .cart-drawer.open {
+        
+        .cart-sidebar.open {
             transform: translateX(0);
         }
         
-        .dial {
-            background: conic-gradient(from 180deg at 50% 50%, #e0d8cc, #ffffff, #e0d8cc);
-            box-shadow: 
-                2px 2px 5px var(--shadow-dark),
-                -2px -2px 5px var(--shadow-light),
-                inset 1px 1px 2px rgba(255,255,255,0.8);
-            border: 1px solid #d4cfc7;
+        .overlay-backdrop {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
         }
-
-        /* Trust indicators */
-        .trust-badge {
-            background: linear-gradient(145deg, rgba(123, 176, 105, 0.1), rgba(123, 176, 105, 0.05));
-            border: 1px solid rgba(123, 176, 105, 0.2);
-            color: var(--trust);
+        
+        .overlay-backdrop.active {
+            opacity: 1;
+            pointer-events: all;
         }
-
-        /* Smooth transitions */
-        * {
-            transition-property: color, background-color, border-color, box-shadow, transform;
-            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #FF6B00 0%, #FF8533 100%);
+            transition: all 0.3s ease;
         }
-
-        /* Selection */
-        ::selection {
-            background: rgba(244, 162, 97, 0.25);
-            color: var(--text-dark);
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(255, 107, 0, 0.5);
         }
-
-        /* Focus states for accessibility */
-        button:focus-visible, a:focus-visible {
-            outline: 2px solid var(--accent-warm);
-            outline-offset: 2px;
+        
+        .category-pill {
+            transition: all 0.3s ease;
         }
-
-        /* Loading animation */
-        @keyframes gentle-pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+        
+        .category-pill.active {
+            background: #FF6B00;
+            color: white;
+            border-color: #FF6B00;
         }
-        .gentle-pulse {
-            animation: gentle-pulse 2s ease-in-out infinite;
+        
+        .floating-badge {
+            animation: float 6s ease-in-out infinite;
         }
-
-        /* Footer specific styles */
-        .footer-link {
-            color: var(--text-light);
-            transition: all 0.2s ease;
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
-        .footer-link:hover {
-            color: var(--accent-warm);
-            transform: translateX(4px);
+        
+        .search-expand {
+            width: 0;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .search-expand.active {
+            width: 250px;
+            opacity: 1;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .shimmer::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+        
+        .shimmer:hover::after {
+            left: 100%;
+        }
+        
+        .quantity-btn {
+            transition: all 0.2s;
+        }
+        
+        .quantity-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .toast {
+            transform: translateX(150%);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .toast.show {
+            transform: translateX(0);
         }
     </style>
 </head>
-<body class="antialiased selection:bg-orange-200">
+<body class="font-sans antialiased bg-gray-50 text-gray-900">
 
-    <nav class="nav-bar fixed w-full z-50 top-0">
-        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-4 cursor-pointer" onclick="window.scrollTo(0,0)">
-                <div class="w-12 h-12 neu-flat rounded-xl flex items-center justify-center">
-                    <i class="fas fa-shopping-bag text-[var(--accent-warm)] text-lg"></i>
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 bg-brand-orange rounded-lg flex items-center justify-center mr-3 shadow-lg">
+                        <i class="fas fa-shopping-cart text-white text-lg"></i>
+                    </div>
+                    <span class="font-display text-2xl font-bold text-white" id="nav-logo-text">SwiftCart</span>
                 </div>
-                <div>
-                    <span class="text-xl font-semibold tracking-tight text-[var(--text-dark)]" style="text-shadow: 1px 1px 0px rgba(255,255,255,0.8);">SwiftCart</span>
-                    <p class="text-[10px] text-[var(--text-light)] tracking-wide">Thoughtfully Crafted</p>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#trending" class="text-white/90 hover:text-brand-orange transition-colors font-medium">Trending</a>
+                    <a href="#categories" class="text-white/90 hover:text-brand-orange transition-colors font-medium">Categories</a>
+                    <a href="#deals" class="text-white/90 hover:text-brand-orange transition-colors font-medium">Hot Deals</a>
+                    <a href="#new" class="text-white/90 hover:text-brand-orange transition-colors font-medium">New Arrivals</a>
                 </div>
-            </div>
 
-            <div class="hidden md:flex items-center gap-6 p-2 rounded-2xl neu-pressed">
-                <a href="#shop" class="px-4 py-2 rounded-xl text-sm font-medium text-[var(--text-medium)] hover:text-[var(--accent-warm)] transition-colors">Store</a>
-                <a href="#collections" class="px-4 py-2 rounded-xl text-sm font-medium text-[var(--text-medium)] hover:text-[var(--accent-warm)] transition-colors">Collections</a>
-                <a href="#craft" class="px-4 py-2 rounded-xl text-sm font-medium text-[var(--text-medium)] hover:text-[var(--accent-warm)] transition-colors">Our Craft</a>
-            </div>
+                <!-- Actions -->
+                <div class="flex items-center space-x-4">
+                    <!-- Search -->
+                    <div class="hidden md:flex items-center relative">
+                        <input type="text" id="search-input" placeholder="Search accessories..." 
+                               class="search-expand bg-white/10 border border-white/20 rounded-full px-4 py-2 text-white placeholder-white/50 focus:outline-none focus:border-brand-orange">
+                        <button onclick="toggleSearch()" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-brand-orange transition-colors">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
 
-            <div class="flex items-center gap-4">
-                <button class="w-12 h-12 neu-btn rounded-full flex items-center justify-center" aria-label="Search">
-                    <i class="fas fa-search text-[var(--text-light)]"></i>
-                </button>
-                <button onclick="toggleCart()" id="cart-btn" class="w-12 h-12 neu-btn rounded-full flex items-center justify-center relative" aria-label="Cart">
-                    <i class="fas fa-shopping-basket text-[var(--text-light)]"></i>
-                    <span id="cart-badge" class="absolute -top-1 -right-1 w-6 h-6 neu-btn-primary rounded-full flex items-center justify-center text-[11px] font-bold shadow-md">0</span>
-                </button>
+                    <!-- Wishlist -->
+                    <button class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-brand-orange transition-colors relative">
+                        <i class="fas fa-heart"></i>
+                        <span class="absolute -top-1 -right-1 bg-brand-orange text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">3</span>
+                    </button>
+
+                    <!-- Cart -->
+                    <button onclick="toggleCart()" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-brand-orange transition-colors relative">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span id="cart-badge" class="absolute -top-1 -right-1 bg-brand-orange text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">0</span>
+                    </button>
+
+                    <!-- Mobile Menu -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
 
-    <section class="pt-32 pb-20 px-6 max-w-6xl mx-auto">
-        <div class="metal-plate rounded-3xl p-2">
-            <div class="neu-pressed rounded-2xl p-8 md:p-16 flex flex-col md:flex-row items-center gap-12">
-                <div class="flex-1 text-center md:text-left z-10">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 neu-flat rounded-full mb-8">
-                        <div class="w-2 h-2 rounded-full bg-[var(--success)] shadow-[0_0_8px_rgba(123,176,105,0.6)] gentle-pulse"></div>
-                        <span class="text-xs font-semibold text-[var(--text-medium)] tracking-wider uppercase">Trusted by 10,000+ makers</span>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-brand-dark transform translate-x-full transition-transform duration-300 md:hidden">
+        <div class="flex flex-col h-full p-8">
+            <div class="flex justify-between items-center mb-12">
+                <span class="font-display text-2xl font-bold text-white">SwiftCart</span>
+                <button onclick="toggleMobileMenu()" class="text-white text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="flex flex-col space-y-6">
+                <a href="#trending" onclick="toggleMobileMenu()" class="text-2xl text-white font-display font-semibold">Trending</a>
+                <a href="#categories" onclick="toggleMobileMenu()" class="text-2xl text-white font-display font-semibold">Categories</a>
+                <a href="#deals" onclick="toggleMobileMenu()" class="text-2xl text-white font-display font-semibold">Hot Deals</a>
+                <a href="#new" onclick="toggleMobileMenu()" class="text-2xl text-white font-display font-semibold">New Arrivals</a>
+            </div>
+            <div class="mt-auto">
+                <button class="w-full py-4 bg-brand-orange text-white rounded-xl font-bold text-lg">
+                    Sign In
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center hero-gradient overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 40px 40px;"></div>
+        </div>
+
+        <!-- Floating Elements -->
+        <div class="absolute top-1/4 left-10 w-20 h-20 bg-brand-orange/20 rounded-full blur-xl floating-badge"></div>
+        <div class="absolute bottom-1/3 right-20 w-32 h-32 bg-white/5 rounded-full blur-2xl floating-badge" style="animation-delay: 2s;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-white space-y-8 animate-slide-up">
+                    <div class="inline-flex items-center px-4 py-2 bg-white/10 rounded-full border border-white/20 backdrop-blur-sm">
+                        <span class="w-2 h-2 bg-brand-orange rounded-full mr-2 animate-pulse"></span>
+                        <span class="text-sm font-medium">New Summer Collection 2024</span>
                     </div>
                     
-                    <h1 class="text-5xl md:text-7xl font-bold text-[var(--text-dark)] mb-6 leading-tight" style="text-shadow: 2px 2px 4px rgba(255,255,255,0.6);">
-                        Tools for <br>
-                        <span class="text-[var(--accent-warm)]">creative</span> minds.
+                    <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight">
+                        Elevate Your <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-yellow-400">Style Game</span>
                     </h1>
                     
-                    <p class="text-lg text-[var(--text-medium)] mb-10 max-w-md font-normal leading-relaxed">
-                        Everyday essentials designed with care. We believe in products that feel good to use and last for years.
+                    <p class="text-xl text-gray-300 max-w-lg leading-relaxed">
+                        Discover premium accessories crafted for the modern trendsetter. From sleek tech gadgets to fashion essentials.
                     </p>
 
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                        <button onclick="document.getElementById('shop').scrollIntoView()" class="neu-btn-primary px-8 py-4 rounded-xl font-semibold text-lg tracking-wide flex items-center justify-center gap-3">
-                            <i class="fas fa-compass"></i> Explore Collection
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="document.getElementById('trending').scrollIntoView({behavior: 'smooth'})" 
+                                class="btn-primary px-8 py-4 rounded-full text-white font-bold text-lg flex items-center justify-center gap-2 group">
+                            Shop Now
+                            <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </button>
-                        <button class="neu-btn px-8 py-4 rounded-xl font-semibold text-lg text-[var(--text-medium)]">
-                            <i class="fas fa-play-circle mr-2"></i> Watch Story
+                        <button class="px-8 py-4 rounded-full border-2 border-white/30 text-white font-bold text-lg hover:bg-white/10 transition-colors">
+                            View Lookbook
                         </button>
                     </div>
 
-                    <div class="flex items-center gap-6 mt-10 text-sm text-[var(--text-light)]">
-                        <span class="flex items-center gap-2">
-                            <i class="fas fa-check-circle text-[var(--success)]"></i> Free shipping
-                        </span>
-                        <span class="flex items-center gap-2">
-                            <i class="fas fa-check-circle text-[var(--success)]"></i> 30-day returns
-                        </span>
-                        <span class="flex items-center gap-2">
-                            <i class="fas fa-check-circle text-[var(--success)]"></i> Secure checkout
-                        </span>
+                    <div class="flex items-center gap-8 pt-8 border-t border-white/10">
+                        <div>
+                            <p class="text-3xl font-bold text-brand-orange">50K+</p>
+                            <p class="text-sm text-gray-400">Happy Customers</p>
+                        </div>
+                        <div class="w-px h-12 bg-white/20"></div>
+                        <div>
+                            <p class="text-3xl font-bold text-brand-orange">2000+</p>
+                            <p class="text-sm text-gray-400">Products</p>
+                        </div>
+                        <div class="w-px h-12 bg-white/20"></div>
+                        <div>
+                            <p class="text-3xl font-bold text-brand-orange">4.9</p>
+                            <p class="text-sm text-gray-400">Rating</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="flex-1 w-full max-w-md">
-                    <div class="paper-texture p-4 rounded-xl transform rotate-2 hover:rotate-0 transition-transform duration-500">
-                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80" class="w-full rounded-lg shadow-inner" alt="Headphones">
-                        <div class="mt-4 flex justify-between items-center px-2 pb-2">
-                            <span class="font-semibold text-[var(--text-dark)]">Aura Pro Max</span>
-                            <span class="font-bold text-[var(--accent-warm)]">$299</span>
+                <div class="relative hidden lg:block">
+                    <div class="relative z-10 animate-fade-in">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                             alt="Premium Headphones" 
+                             class="rounded-3xl shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                        
+                        <!-- Floating Card -->
+                        <div class="absolute -bottom-6 -left-6 bg-white rounded-2xl p-4 shadow-xl animate-bounce-slow">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 bg-brand-light rounded-full flex items-center justify-center">
+                                    <i class="fas fa-headphones text-brand-orange text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-900">Sony WH-1000XM5</p>
+                                    <p class="text-brand-orange font-bold">$348.00</p>
+                                </div>
+                            </div>
                         </div>
+
+                        <!-- Discount Badge -->
+                        <div class="absolute -top-4 -right-4 bg-brand-orange text-white rounded-full w-24 h-24 flex items-center justify-center font-bold text-lg rotate-12 shadow-lg">
+                            30%<br>OFF
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/50 animate-bounce">
+            <i class="fas fa-chevron-down text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- Features Bar -->
+    <section class="bg-white py-8 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-brand-light rounded-full flex items-center justify-center text-brand-orange">
+                        <i class="fas fa-shipping-fast text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-900">Free Shipping</p>
+                        <p class="text-sm text-gray-500">On orders over $50</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-brand-light rounded-full flex items-center justify-center text-brand-orange">
+                        <i class="fas fa-shield-alt text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-900">Secure Payment</p>
+                        <p class="text-sm text-gray-500">100% secure checkout</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-brand-light rounded-full flex items-center justify-center text-brand-orange">
+                        <i class="fas fa-undo text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-900">Easy Returns</p>
+                        <p class="text-sm text-gray-500">30-day return policy</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-brand-light rounded-full flex items-center justify-center text-brand-orange">
+                        <i class="fas fa-headset text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-900">24/7 Support</p>
+                        <p class="text-sm text-gray-500">Dedicated support</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="collections" class="py-20 px-6 max-w-6xl mx-auto">
-        <div class="flex items-center gap-6 mb-16">
-            <h2 class="text-3xl font-bold text-[var(--text-dark)]" style="text-shadow: 1px 1px 0px rgba(255,255,255,0.8);">Curated Sets</h2>
-            <div class="flex-1 h-2 neu-pressed rounded-full"></div>
+    <!-- Categories Section -->
+    <section id="categories" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">Shop by Category</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Explore our wide range of premium accessories designed to complement your lifestyle</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <!-- Category Cards -->
+                <div onclick="filterByCategory('tech')" class="group cursor-pointer">
+                    <div class="bg-white rounded-2xl p-6 text-center card-hover border-2 border-transparent hover:border-brand-orange/20">
+                        <div class="w-16 h-16 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-orange transition-colors duration-300">
+                            <i class="fas fa-headphones text-2xl text-brand-orange group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900">Tech</h3>
+                        <p class="text-sm text-gray-500 mt-1">124 items</p>
+                    </div>
+                </div>
+
+                <div onclick="filterByCategory('watches')" class="group cursor-pointer">
+                    <div class="bg-white rounded-2xl p-6 text-center card-hover border-2 border-transparent hover:border-brand-orange/20">
+                        <div class="w-16 h-16 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-orange transition-colors duration-300">
+                            <i class="fas fa-clock text-2xl text-brand-orange group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900">Watches</h3>
+                        <p class="text-sm text-gray-500 mt-1">86 items</p>
+                    </div>
+                </div>
+
+                <div onclick="filterByCategory('bags')" class="group cursor-pointer">
+                    <div class="bg-white rounded-2xl p-6 text-center card-hover border-2 border-transparent hover:border-brand-orange/20">
+                        <div class="w-16 h-16 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-orange transition-colors duration-300">
+                            <i class="fas fa-shopping-bag text-2xl text-brand-orange group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900">Bags</h3>
+                        <p class="text-sm text-gray-500 mt-1">215 items</p>
+                    </div>
+                </div>
+
+                <div onclick="filterByCategory('jewelry')" class="group cursor-pointer">
+                    <div class="bg-white rounded-2xl p-6 text-center card-hover border-2 border-transparent hover:border-brand-orange/20">
+                        <div class="w-16 h-16 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-orange transition-colors duration-300">
+                            <i class="fas fa-gem text-2xl text-brand-orange group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900">Jewelry</h3>
+                        <p class="text-sm text-gray-500 mt-1">178 items</p>
+                    </div>
+                </div>
+
+                <div onclick="filterByCategory('sunglasses')" class="group cursor-pointer">
+                    <div class="bg-white rounded-2xl p-6 text-center card-hover border-2 border-transparent hover:border-brand-orange/20">
+                        <div class="w-16 h-16 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-orange transition-colors duration-300">
+                            <i class="fas fa-glasses text-2xl text-brand-orange group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900">Eyewear</h3>
+                        <p class="text-sm text-gray-500 mt-1">92 items</p>
+                    </div>
+                </div>
+
+                <div onclick="filterByCategory('wallets')" class="group cursor-pointer">
+                    <div class="bg-white rounded-2xl p-6 text-center card-hover border-2 border-transparent hover:border-brand-orange/20">
+                        <div class="w-16 h-16 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-orange transition-colors duration-300">
+                            <i class="fas fa-wallet text-2xl text-brand-orange group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900">Wallets</h3>
+                        <p class="text-sm text-gray-500 mt-1">64 items</p>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <div class="group cursor-pointer" onclick="filterCategory('leather')">
-                <div class="neu-flat rounded-2xl p-4 mb-6 hover:transform hover:-translate-y-1 transition-transform">
-                    <div class="product-image-well aspect-square">
-                        <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80" alt="Leather" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    </div>
+    <!-- Trending Products -->
+    <section id="trending" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+                <div>
+                    <p class="text-brand-orange font-bold uppercase tracking-wider mb-2">Trending Now</p>
+                    <h2 class="font-display text-4xl font-bold">Most Popular Accessories</h2>
                 </div>
-                <h3 class="text-xl font-semibold text-[var(--text-dark)] text-center">Leather Goods</h3>
-                <p class="text-sm text-[var(--text-light)] text-center mt-1">Aging beautifully since day one</p>
+                
+                <!-- Filter Pills -->
+                <div class="flex gap-3 mt-6 md:mt-0 overflow-x-auto pb-2 md:pb-0 w-full md:w-auto">
+                    <button onclick="filterProducts('all')" class="category-pill active px-6 py-2 rounded-full border-2 border-gray-200 font-medium whitespace-nowrap" data-filter="all">All</button>
+                    <button onclick="filterProducts('tech')" class="category-pill px-6 py-2 rounded-full border-2 border-gray-200 font-medium whitespace-nowrap hover:border-brand-orange" data-filter="tech">Tech</button>
+                    <button onclick="filterProducts('fashion')" class="category-pill px-6 py-2 rounded-full border-2 border-gray-200 font-medium whitespace-nowrap hover:border-brand-orange" data-filter="fashion">Fashion</button>
+                    <button onclick="filterProducts('lifestyle')" class="category-pill px-6 py-2 rounded-full border-2 border-gray-200 font-medium whitespace-nowrap hover:border-brand-orange" data-filter="lifestyle">Lifestyle</button>
+                </div>
             </div>
 
-            <div class="group cursor-pointer" onclick="filterCategory('tech')">
-                <div class="neu-flat rounded-2xl p-4 mb-6 hover:transform hover:-translate-y-1 transition-transform">
-                    <div class="product-image-well aspect-square">
-                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80" alt="Tech" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                </div>
-                <h3 class="text-xl font-semibold text-[var(--text-dark)] text-center">Desk Setup</h3>
-                <p class="text-sm text-[var(--text-light)] text-center mt-1">Tools that inspire focus</p>
+            <!-- Products Grid -->
+            <div id="products-container" class="product-grid">
+                <!-- Products injected by JS -->
             </div>
 
-            <div class="group cursor-pointer" onclick="filterCategory('stationery')">
-                <div class="neu-flat rounded-2xl p-4 mb-6 hover:transform hover:-translate-y-1 transition-transform">
-                    <div class="product-image-well aspect-square">
-                        <img src="https://images.unsplash.com/photo-1585336261022-680e295ce3fe?w=600&q=80" alt="Stationery" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                </div>
-                <h3 class="text-xl font-semibold text-[var(--text-dark)] text-center">Stationery</h3>
-                <p class="text-sm text-[var(--text-light)] text-center mt-1">For ideas worth keeping</p>
+            <div class="text-center mt-12">
+                <button class="px-8 py-4 border-2 border-gray-900 rounded-full font-bold hover:bg-gray-900 hover:text-white transition-all duration-300">
+                    Load More Products
+                </button>
             </div>
+        </div>
+    </section>
+
+    <!-- Hot Deals Banner -->
+    <section id="deals" class="py-20 bg-brand-dark relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <img src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+                 alt="Background" class="w-full h-full object-cover">
         </div>
         
-        <div class="wood-shelf mt-6 mx-4"></div>
-    </section>
-
-    <section id="shop" class="py-20 px-6 max-w-6xl mx-auto">
-        <div class="neu-flat rounded-3xl p-8 md:p-12">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
-                <div>
-                    <h2 class="text-3xl font-bold text-[var(--text-dark)]">Browse Collection</h2>
-                    <p class="text-[var(--text-light)] mt-2 font-medium"><span id="product-count">12</span> thoughtfully made items</p>
-                </div>
-                
-                <div class="neu-pressed p-2 rounded-2xl flex gap-2 overflow-x-auto w-full md:w-auto">
-                    <button onclick="filterProducts('all')" class="filter-btn active px-6 py-3 rounded-xl text-sm font-semibold transition-all neu-btn" data-filter="all">All Items</button>
-                    <button onclick="filterProducts('leather')" class="filter-btn px-6 py-3 rounded-xl text-sm font-semibold transition-all text-[var(--text-light)] hover:text-[var(--text-dark)]" data-filter="leather">Leather</button>
-                    <button onclick="filterProducts('tech')" class="filter-btn px-6 py-3 rounded-xl text-sm font-semibold transition-all text-[var(--text-light)] hover:text-[var(--text-dark)]" data-filter="tech">Tech</button>
-                    <button onclick="filterProducts('stationery')" class="filter-btn px-6 py-3 rounded-xl text-sm font-semibold transition-all text-[var(--text-light)] hover:text-[var(--text-dark)]" data-filter="stationery">Stationery</button>
-                </div>
-            </div>
-
-            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                </div>
-        </div>
-    </section>
-
-    <section id="craft" class="py-20 px-6 max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div class="metal-plate p-4 rounded-3xl transform -rotate-1">
-                <div class="screen-glass p-2">
-                    <img src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=800&q=80" alt="Craft" class="w-full rounded-lg opacity-90">
-                </div>
-            </div>
-            
-            <div>
-                <div class="trust-badge inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6">
-                    <i class="fas fa-heart text-sm"></i>
-                    <span class="text-xs font-semibold tracking-wide">Made with intention</span>
-                </div>
-                
-                <h2 class="text-4xl font-bold text-[var(--text-dark)] mb-6" style="text-shadow: 1px 1px 0px rgba(255,255,255,0.8);">Built to be loved.</h2>
-                <p class="text-lg text-[var(--text-medium)] mb-8 leading-relaxed font-normal">
-                    We create products that age gracefully. Every material is chosen for how it feels in your hand today, and how it will look ten years from now. No planned obsolescence, just honest craftsmanship.
-                </p>
-                
-                <div class="space-y-4">
-                    <div class="flex items-center gap-6 p-4 neu-flat rounded-2xl hover:transform hover:translate-x-1 transition-transform cursor-default">
-                        <div class="w-12 h-12 dial rounded-full flex items-center justify-center">
-                            <i class="fas fa-hands text-[var(--text-medium)]"></i>
-                        </div>
-                        <div>
-                            <span class="font-semibold text-[var(--text-dark)] text-lg block">Artisan Crafted</span>
-                            <span class="text-sm text-[var(--text-light)]">Small batch production</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-6 p-4 neu-flat rounded-2xl hover:transform hover:translate-x-1 transition-transform cursor-default">
-                        <div class="w-12 h-12 dial rounded-full flex items-center justify-center">
-                            <i class="fas fa-leaf text-[var(--text-medium)]"></i>
-                        </div>
-                        <div>
-                            <span class="font-semibold text-[var(--text-dark)] text-lg block">Sustainable Materials</span>
-                            <span class="text-sm text-[var(--text-light)]">Responsibly sourced</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-6 p-4 neu-flat rounded-2xl hover:transform hover:translate-x-1 transition-transform cursor-default">
-                        <div class="w-12 h-12 dial rounded-full flex items-center justify-center">
-                            <i class="fas fa-shield-alt text-[var(--text-medium)]"></i>
-                        </div>
-                        <div>
-                            <span class="font-semibold text-[var(--text-dark)] text-lg block">Lifetime Promise</span>
-                            <span class="text-sm text-[var(--text-light)]">We'll repair or replace</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 px-6 max-w-6xl mx-auto">
-        <div class="neu-flat rounded-3xl p-12 text-center">
-            <i class="fas fa-quote-left text-4xl text-[var(--accent-soft)] mb-6 opacity-50"></i>
-            <blockquote class="text-2xl md:text-3xl font-medium text-[var(--text-dark)] mb-8 max-w-3xl mx-auto leading-relaxed">
-                "The quality is exceptional. You can feel the care that went into making these. They've become essential parts of my daily routine."
-            </blockquote>
-            <div class="flex items-center justify-center gap-4">
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="Customer" class="w-14 h-14 rounded-full object-cover shadow-md">
-                <div class="text-left">
-                    <p class="font-semibold text-[var(--text-dark)]">Sarah Mitchell</p>
-                    <p class="text-sm text-[var(--text-light)]">Designer & Illustrator</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="mt-20 px-6 pb-8">
-        <div class="max-w-6xl mx-auto">
-            <!-- Newsletter Section -->
-            <div class="neu-flat rounded-3xl p-8 md:p-12 mb-8 text-center relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-64 h-64 opacity-5 pointer-events-none">
-                    <svg viewBox="0 0 100 100" class="w-full h-full">
-                        <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="0.5"/>
-                        <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="0.5"/>
-                        <circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="0.5"/>
-                    </svg>
-                </div>
-                
-                <div class="relative z-10 max-w-xl mx-auto">
-                    <div class="w-16 h-16 neu-pressed rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-envelope text-[var(--accent-warm)] text-xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-[var(--text-dark)] mb-3">Stay in the loop</h3>
-                    <p class="text-[var(--text-light)] mb-6">Get updates on new arrivals, stories from our makers, and exclusive offers.</p>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-white">
+                    <div class="inline-block px-4 py-1 bg-brand-orange rounded-full text-sm font-bold mb-6">Flash Sale</div>
+                    <h2 class="font-display text-5xl md:text-6xl font-bold mb-6">Premium Wireless Earbuds Pro</h2>
+                    <p class="text-xl text-gray-300 mb-8">Experience crystal-clear audio with active noise cancellation. Limited time offer - 40% off!</p>
                     
-                    <form onsubmit="handleNewsletter(event)" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                        <input type="email" placeholder="your@email.com" required
-                               class="flex-1 px-5 py-3 neu-pressed rounded-xl text-sm bg-transparent focus:outline-none focus:text-[var(--text-dark)] placeholder-[var(--text-light)]">
-                        <button type="submit" class="neu-btn-primary px-6 py-3 rounded-xl font-semibold text-sm whitespace-nowrap">
-                            Subscribe
+                    <div class="flex gap-4 mb-8">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-white/10 rounded-lg flex items-center justify-center text-2xl font-bold" id="hours">02</div>
+                            <p class="text-sm text-gray-400 mt-1">Hours</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-white/10 rounded-lg flex items-center justify-center text-2xl font-bold" id="minutes">45</div>
+                            <p class="text-sm text-gray-400 mt-1">Mins</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-brand-orange rounded-lg flex items-center justify-center text-2xl font-bold" id="seconds">30</div>
+                            <p class="text-sm text-gray-400 mt-1">Secs</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-6">
+                        <div>
+                            <p class="text-gray-400 line-through text-xl">$249.00</p>
+                            <p class="text-4xl font-bold text-brand-orange">$149.00</p>
+                        </div>
+                        <button onclick="addToCart(999)" class="btn-primary px-8 py-4 rounded-full text-white font-bold text-lg">
+                            Grab Deal Now
                         </button>
-                    </form>
-                    <p class="text-xs text-[var(--text-light)] mt-4">
-                        <i class="fas fa-lock mr-1"></i> We respect your privacy. Unsubscribe anytime.
-                    </p>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Earbuds" 
+                         class="rounded-3xl shadow-2xl floating-badge">
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Main Footer Content -->
-            <div class="neu-pressed rounded-3xl p-8 md:p-12">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-                    <!-- Brand -->
-                    <div class="lg:col-span-1">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="w-10 h-10 neu-flat rounded-lg flex items-center justify-center">
-                                <i class="fas fa-shopping-bag text-[var(--accent-warm)] text-sm"></i>
-                            </div>
-                            <div>
-                                <span class="font-semibold text-[var(--text-dark)]">SwiftCart</span>
-                                <p class="text-[10px] text-[var(--text-light)]">Thoughtfully Crafted</p>
-                            </div>
-                        </div>
-                        <p class="text-sm text-[var(--text-light)] leading-relaxed mb-6">
-                            Everyday essentials designed with care. We believe in products that feel good to use and last for years.
-                        </p>
-                        <div class="flex gap-3">
-                            <a href="#" class="w-10 h-10 neu-btn rounded-full flex items-center justify-center text-[var(--text-light)] hover:text-[var(--accent-warm)]">
-                                <i class="fab fa-instagram text-sm"></i>
-                            </a>
-                            <a href="#" class="w-10 h-10 neu-btn rounded-full flex items-center justify-center text-[var(--text-light)] hover:text-[var(--accent-warm)]">
-                                <i class="fab fa-twitter text-sm"></i>
-                            </a>
-                            <a href="#" class="w-10 h-10 neu-btn rounded-full flex items-center justify-center text-[var(--text-light)] hover:text-[var(--accent-warm)]">
-                                <i class="fab fa-pinterest text-sm"></i>
-                            </a>
-                        </div>
-                    </div>
+    <!-- New Arrivals -->
+    <section id="new" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-brand-orange font-bold uppercase tracking-wider mb-2">Fresh Drops</p>
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">New Arrivals</h2>
+                <p class="text-gray-600">Be the first to explore our latest accessory additions</p>
+            </div>
 
-                    <!-- Shop -->
-                    <div>
-                        <h4 class="font-semibold text-[var(--text-dark)] mb-4 text-sm uppercase tracking-wider">Shop</h4>
-                        <ul class="space-y-3">
-                            <li><a href="#shop" class="footer-link text-sm inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] opacity-50"></i> All Products</a></li>
-                            <li><a href="#" class="footer-link text-sm inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] opacity-50"></i> New Arrivals</a></li>
-                            <li><a href="#" class="footer-link text-sm inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] opacity-50"></i> Bestsellers</a></li>
-                            <li><a href="#" class="footer-link text-sm inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] opacity-50"></i> Gift Cards</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Support -->
-                    <div>
-                        <h4 class="font-semibold text-[var(--text-dark)] mb-4 text-sm uppercase tracking-wider">Support</h4>
-                        <ul class="space-y-3">
-                            <li><a href="#" class="footer-link text-sm inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] opacity-50"></i> Help Center</a></li>
-                            <li><a href="#" class="footer-link text-sm inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] opacity-50"></i> Shipping & Returns</a></li>
-                            <li><a href="#" class="footer-link text-sm inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] opacity-50"></i> Lifetime Warranty</a></li>
-                            <li><a href="#" class="footer-link text-sm inline-flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] opacity-50"></i> Contact Us</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Contact -->
-                    <div>
-                        <h4 class="font-semibold text-[var(--text-dark)] mb-4 text-sm uppercase tracking-wider">Get in Touch</h4>
-                        <ul class="space-y-3 text-sm text-[var(--text-light)]">
-                            <li class="flex items-start gap-3">
-                                <i class="fas fa-map-marker-alt mt-1 text-[var(--accent-warm)]"></i>
-                                <span>123 Artisan Way<br>Portland, OR 97201</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <i class="fas fa-envelope text-[var(--accent-warm)]"></i>
-                                <a href="mailto:hello@swiftcart.com" class="footer-link">hello@swiftcart.com</a>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <i class="fas fa-phone text-[var(--accent-warm)]"></i>
-                                <span>(555) 123-4567</span>
-                            </li>
-                        </ul>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Featured New Item -->
+                <div class="md:col-span-2 relative group overflow-hidden rounded-3xl h-[500px]">
+                    <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                         alt="New Collection" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 text-white">
+                        <span class="px-3 py-1 bg-brand-orange rounded-full text-sm font-bold mb-4 inline-block">New</span>
+                        <h3 class="font-display text-3xl font-bold mb-2">Luxury Watch Collection</h3>
+                        <p class="text-gray-300 mb-4">Swiss craftsmanship meets modern design</p>
+                        <button class="text-brand-orange font-bold flex items-center gap-2 group-hover:gap-4 transition-all">
+                            Shop Collection <i class="fas fa-arrow-right"></i>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Bottom Bar -->
-                <div class="pt-8 border-t border-[var(--shadow-dark)]/30">
-                    <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                        <p class="text-xs text-[var(--text-light)]">
-                            &copy; 2024 SwiftCart. Made with <i class="fas fa-heart text-[var(--accent-warm)] mx-1"></i> for creative minds.
-                        </p>
-                        <div class="flex items-center gap-6 text-xs text-[var(--text-light)]">
-                            <a href="#" class="footer-link">Privacy Policy</a>
-                            <a href="#" class="footer-link">Terms of Service</a>
-                            <a href="#" class="footer-link">Accessibility</a>
+                <div class="space-y-8">
+                    <div class="relative group overflow-hidden rounded-3xl h-[236px]">
+                        <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                             alt="Bags" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white">
+                            <h3 class="font-bold text-xl mb-1">Designer Bags</h3>
+                            <p class="text-sm text-gray-300">From $89</p>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <i class="fab fa-cc-visa text-2xl text-[var(--text-light)]"></i>
-                            <i class="fab fa-cc-mastercard text-2xl text-[var(--text-light)]"></i>
-                            <i class="fab fa-cc-amex text-2xl text-[var(--text-light)]"></i>
-                            <i class="fab fa-cc-paypal text-2xl text-[var(--text-light)]"></i>
+                    </div>
+
+                    <div class="relative group overflow-hidden rounded-3xl h-[236px]">
+                        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                             alt="Sunglasses" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white">
+                            <h3 class="font-bold text-xl mb-1">Premium Eyewear</h3>
+                            <p class="text-sm text-gray-300">From $129</p>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Trust Badges -->
-            <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="neu-flat rounded-2xl p-4 text-center">
-                    <i class="fas fa-truck text-[var(--success)] text-xl mb-2"></i>
-                    <p class="text-xs font-semibold text-[var(--text-dark)]">Free Shipping</p>
-                    <p class="text-[10px] text-[var(--text-light)]">On orders over $50</p>
+    <!-- Testimonials -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-display text-4xl font-bold text-center mb-16">What Our Customers Say</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 rounded-3xl p-8 card-hover">
+                    <div class="flex text-brand-orange mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6">"The quality of these accessories is incredible. Fast shipping and amazing customer service. SwiftCart is now my go-to store!"</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" class="w-12 h-12 rounded-full object-cover" alt="User">
+                        <div>
+                            <p class="font-bold">Sarah Johnson</p>
+                            <p class="text-sm text-gray-500">Verified Buyer</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="neu-flat rounded-2xl p-4 text-center">
-                    <i class="fas fa-undo text-[var(--success)] text-xl mb-2"></i>
-                    <p class="text-xs font-semibold text-[var(--text-dark)]">Easy Returns</p>
-                    <p class="text-[10px] text-[var(--text-light)]">30-day guarantee</p>
+
+                <div class="bg-gray-50 rounded-3xl p-8 card-hover">
+                    <div class="flex text-brand-orange mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6">"Bought the wireless earbuds and they exceeded my expectations. The sound quality rivals brands that cost twice as much."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" class="w-12 h-12 rounded-full object-cover" alt="User">
+                        <div>
+                            <p class="font-bold">Michael Chen</p>
+                            <p class="text-sm text-gray-500">Verified Buyer</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="neu-flat rounded-2xl p-4 text-center">
-                    <i class="fas fa-shield-alt text-[var(--success)] text-xl mb-2"></i>
-                    <p class="text-xs font-semibold text-[var(--text-dark)]">Secure Payment</p>
-                    <p class="text-[10px] text-[var(--text-light)]">256-bit SSL</p>
+
+                <div class="bg-gray-50 rounded-3xl p-8 card-hover">
+                    <div class="flex text-brand-orange mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6">"Love the variety of products available. The website is easy to navigate and checkout was a breeze. Highly recommend!"</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" class="w-12 h-12 rounded-full object-cover" alt="User">
+                        <div>
+                            <p class="font-bold">Emma Davis</p>
+                            <p class="text-sm text-gray-500">Verified Buyer</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="neu-flat rounded-2xl p-4 text-center">
-                    <i class="fas fa-headset text-[var(--success)] text-xl mb-2"></i>
-                    <p class="text-xs font-semibold text-[var(--text-dark)]">24/7 Support</p>
-                    <p class="text-[10px] text-[var(--text-light)]">Here to help</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-20 bg-brand-orange relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 30px 30px;"></div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-4">Join the SwiftCart Family</h2>
+            <p class="text-white/90 mb-8 text-lg">Subscribe for exclusive deals, new arrivals, and insider-only discounts</p>
+            
+            <form onsubmit="handleSubscribe(event)" class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+                <input type="email" placeholder="Enter your email" required
+                       class="flex-1 px-6 py-4 rounded-full bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:bg-white/30 backdrop-blur-sm">
+                <button type="submit" class="px-8 py-4 bg-white text-brand-orange font-bold rounded-full hover:bg-gray-100 transition-colors shadow-lg">
+                    Subscribe
+                </button>
+            </form>
+            
+            <p class="text-white/60 text-sm mt-4">Join 50,000+ subscribers. No spam, unsubscribe anytime.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 bg-brand-orange rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-shopping-cart text-white"></i>
+                        </div>
+                        <span class="font-display text-2xl font-bold">SwiftCart</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">Your destination for premium accessories. Quality products, swift delivery, exceptional service.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-orange transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-orange transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-orange transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-orange transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6">Quick Links</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-brand-orange transition-colors">New Arrivals</a></li>
+                        <li><a href="#" class="hover:text-brand-orange transition-colors">Best Sellers</a></li>
+                        <li><a href="#" class="hover:text-brand-orange transition-colors">Hot Deals</a></li>
+                        <li><a href="#" class="hover:text-brand-orange transition-colors">Trending Now</a></li>
+                        <li><a href="#" class="hover:text-brand-orange transition-colors">Gift Cards</a></li>
+                    </ul>
+                </div>
+
+                <!-- Customer Service -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6">Customer Service</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-brand-orange transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-brand-orange transition-colors">FAQs</a></li>
+                        <li><a href="#" class="hover:text-brand-orange transition-colors">Shipping Info</a></li>
+                        <li><a href="#" class="hover:text-brand-orange transition-colors">Returns & Exchanges</a></li>
+                        <li><a href="#" class="hover:text-brand-orange transition-colors">Size Guide</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6">Contact Us</h4>
+                    <ul class="space-y-4 text-gray-400">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt mt-1 text-brand-orange"></i>
+                            <span>123 Commerce Street<br>New York, NY 10001</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-phone text-brand-orange"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-brand-orange"></i>
+                            <span>support@swiftcart.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-sm">&copy; 2024 SwiftCart. All rights reserved.</p>
+                <div class="flex gap-6 text-sm text-gray-500">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition-colors">Cookie Policy</a>
+                </div>
+                <div class="flex gap-4">
+                    <i class="fab fa-cc-visa text-2xl text-gray-400"></i>
+                    <i class="fab fa-cc-mastercard text-2xl text-gray-400"></i>
+                    <i class="fab fa-cc-amex text-2xl text-gray-400"></i>
+                    <i class="fab fa-cc-paypal text-2xl text-gray-400"></i>
                 </div>
             </div>
         </div>
     </footer>
 
-    <div id="cart-overlay" class="fixed inset-0 bg-[var(--text-dark)]/30 backdrop-blur-sm z-[100] hidden opacity-0 transition-opacity duration-300" onclick="toggleCart()"></div>
-    
-    <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-[var(--bg-color)] z-[101] cart-drawer flex flex-col border-l border-white/60 shadow-[-20px_0_40px_rgba(139,125,107,0.2)]">
-        <div class="px-8 py-6 flex justify-between items-center border-b border-[var(--shadow-dark)]/30 shadow-sm z-10 bg-[var(--bg-color)]/80 backdrop-blur-md">
+    <!-- Cart Sidebar -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/60 z-50 overlay-backdrop" onclick="toggleCart()"></div>
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-[450px] bg-white z-50 cart-sidebar shadow-2xl flex flex-col">
+        <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
             <div>
-                <h2 class="text-2xl font-bold text-[var(--text-dark)]" style="text-shadow: 1px 1px 0px rgba(255,255,255,0.8);">Your Basket</h2>
-                <p class="text-xs text-[var(--text-light)] mt-1">Review your selections</p>
+                <h2 class="font-display text-2xl font-bold">Shopping Cart</h2>
+                <p class="text-sm text-gray-500"><span id="cart-item-count">0</span> items</p>
             </div>
-            <button onclick="toggleCart()" class="w-10 h-10 neu-btn rounded-full flex items-center justify-center">
-                <i class="fas fa-times text-[var(--text-light)]"></i>
+            <button onclick="toggleCart()" class="w-10 h-10 rounded-full hover:bg-gray-200 flex items-center justify-center transition-colors">
+                <i class="fas fa-times text-xl"></i>
             </button>
         </div>
         
-        <div class="flex-1 overflow-y-auto p-8" id="cart-items">
-            </div>
-
-        <div class="p-8 border-t border-[var(--shadow-dark)]/30 bg-[var(--bg-color)] z-10">
-            <div class="neu-flat p-6 rounded-2xl mb-6">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="font-medium text-[var(--text-light)]">Subtotal</span>
-                    <span id="cart-subtotal" class="text-2xl font-bold text-[var(--text-dark)]">$0.00</span>
-                </div>
-                <p class="text-xs text-[var(--success)] flex items-center gap-1">
-                    <i class="fas fa-truck"></i> Free shipping on this order
-                </p>
-            </div>
-            <button class="w-full neu-btn-primary py-4 rounded-xl font-bold text-lg tracking-wide flex items-center justify-center gap-2">
-                <i class="fas fa-lock text-sm"></i> Secure Checkout
-            </button>
-            <p class="text-center text-xs text-[var(--text-light)] mt-4">
-                <i class="fas fa-shield-alt mr-1"></i> 256-bit SSL encrypted
-            </p>
+        <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+            <!-- Cart items injected here -->
         </div>
-    </aside>
+
+        <div class="p-6 border-t border-gray-100 bg-gray-50">
+            <div class="space-y-3 mb-6">
+                <div class="flex justify-between text-gray-600">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal">$0.00</span>
+                </div>
+                <div class="flex justify-between text-gray-600">
+                    <span>Shipping</span>
+                    <span class="text-green-600">Free</span>
+                </div>
+                <div class="flex justify-between text-xl font-bold pt-3 border-t border-gray-200">
+                    <span>Total</span>
+                    <span id="cart-total" class="text-brand-orange">$0.00</span>
+                </div>
+            </div>
+            <button class="w-full py-4 bg-brand-dark text-white font-bold rounded-xl hover:bg-brand-orange transition-colors mb-3 flex items-center justify-center gap-2">
+                Checkout <i class="fas fa-arrow-right"></i>
+            </button>
+            <button onclick="toggleCart()" class="w-full py-3 text-gray-600 hover:text-gray-900 font-medium text-sm">
+                Continue Shopping
+            </button>
+        </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div id="quick-view" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeQuickView()"></div>
+        <div class="relative bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-scale-in shadow-2xl">
+            <button onclick="closeQuickView()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center z-10 transition-colors">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <div id="quick-view-content" class="grid grid-cols-1 md:grid-cols-2">
+                <!-- Content injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-brand-dark text-white px-6 py-4 rounded-2xl shadow-2xl z-50 flex items-center gap-4 toast">
+        <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+            <i class="fas fa-check"></i>
+        </div>
+        <div>
+            <h4 class="font-bold">Added to Cart!</h4>
+            <p class="text-sm text-gray-300" id="toast-message">Product added successfully</p>
+        </div>
+    </div>
 
     <script>
+        // Product Data - Accessories Focus
         const products = [
-            { id: 1, name: "Minimal Wallet", category: "leather", price: 65, image: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=400&q=80", desc: "Softens with age" },
-            { id: 2, name: "Desk Stand", category: "tech", price: 45, image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&q=80", desc: "Stable & elegant" },
-            { id: 3, name: "Brass Pen", category: "stationery", price: 85, image: "https://images.unsplash.com/photo-1585336261022-680e295ce3fe?w=400&q=80", desc: "Develops patina" },
-            { id: 4, name: "Tote Bag", category: "leather", price: 120, image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80", desc: "Carries it all" },
-            { id: 5, name: "Cable Snap", category: "tech", price: 28, image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80", desc: "Tangle-free" },
-            { id: 6, name: "Grid Book", category: "stationery", price: 32, image: "https://images.unsplash.com/photo-1531346878377-a5be20888e57?w=400&q=80", desc: "Lay-flat binding" }
+            {
+                id: 1,
+                name: "Premium Wireless Headphones",
+                category: "tech",
+                subcategory: "audio",
+                price: 299,
+                originalPrice: 399,
+                image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                rating: 4.8,
+                reviews: 124,
+                badge: "Best Seller",
+                description: "Industry-leading noise cancellation with premium sound quality. 30-hour battery life."
+            },
+            {
+                id: 2,
+                name: "Minimalist Leather Watch",
+                category: "fashion",
+                subcategory: "watches",
+                price: 189,
+                image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                rating: 4.9,
+                reviews: 89,
+                badge: "New",
+                description: "Japanese quartz movement with genuine Italian leather strap. Water-resistant."
+            },
+            {
+                id: 3,
+                name: "Designer Sunglasses",
+                category: "fashion",
+                subcategory: "eyewear",
+                price: 159,
+                originalPrice: 229,
+                image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                rating: 4.7,
+                reviews: 203,
+                badge: "Sale",
+                description: "UV400 protection with polarized lenses. Lightweight titanium frame."
+            },
+            {
+                id: 4,
+                name: "Smart Fitness Band",
+                category: "tech",
+                subcategory: "wearables",
+                price: 79,
+                image: "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                rating: 4.6,
+                reviews: 312,
+                badge: null,
+                description: "Track your health metrics with precision. 14-day battery life."
+            },
+            {
+                id: 5,
+                name: "Leather Messenger Bag",
+                category: "lifestyle",
+                subcategory: "bags",
+                price: 249,
+                image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                rating: 4.8,
+                reviews: 67,
+                badge: "Premium",
+                description: "Full-grain leather with brass hardware. Fits 15-inch laptop."
+            },
+            {
+                id: 6,
+                name: "Portable Bluetooth Speaker",
+                category: "tech",
+                subcategory: "audio",
+                price: 129,
+                originalPrice: 179,
+                image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                rating: 4.5,
+                reviews: 156,
+                badge: "Sale",
+                description: "360-degree sound with deep bass. Waterproof IPX7 rating."
+            },
+            {
+                id: 7,
+                name: "Silver Chain Necklace",
+                category: "fashion",
+                subcategory: "jewelry",
+                price: 89,
+                image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                rating: 4.9,
+                reviews: 45,
+                badge: "New",
+                description: "Sterling silver with rhodium plating. Hypoallergenic."
+            },
+            {
+                id: 8,
+                name: "Mechanical Keyboard",
+                category: "tech",
+                subcategory: "gaming",
+                price: 149,
+                image: "https://images.unsplash.com/photo-1595225476474-87563907a212?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                rating: 4.7,
+                reviews: 234,
+                badge: null,
+                description: "RGB backlit with Cherry MX switches. Aluminum construction."
+            }
         ];
 
         let cart = [];
         let currentFilter = 'all';
 
-        document.addEventListener('DOMContentLoaded', renderProducts);
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            setupNavbar();
+            startCountdown();
+        });
 
+        // Render Products
         function renderProducts() {
-            const grid = document.getElementById('products-grid');
-            const filtered = currentFilter === 'all' ? products : products.filter(p => p.category === currentFilter);
+            const container = document.getElementById('products-container');
+            const filtered = currentFilter === 'all' 
+                ? products 
+                : products.filter(p => p.category === currentFilter || p.subcategory === currentFilter);
             
-            document.getElementById('product-count').textContent = filtered.length;
-            
-            grid.innerHTML = filtered.map(p => `
-                <div class="neu-flat rounded-2xl p-4 flex flex-col hover:transform hover:-translate-y-1 transition-transform">
-                    <div class="product-image-well mb-6 relative group">
-                        <img src="${p.image}" alt="${p.name}" class="w-full aspect-square object-cover">
-                        <button onclick="addToCart(${p.id})" class="absolute bottom-4 right-4 w-12 h-12 neu-btn-primary rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-lg hover:scale-110" aria-label="Add to cart">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </div>
-                    <div class="px-2 flex-1 flex flex-col">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-semibold text-[var(--text-dark)] text-lg leading-tight">${p.name}</h3>
-                            <span class="font-bold text-[var(--accent-warm)]">$${p.price}</span>
+            container.innerHTML = filtered.map(product => `
+                <div class="bg-white rounded-2xl overflow-hidden card-hover group border border-gray-100">
+                    <div class="image-reveal relative aspect-square bg-gray-100 cursor-pointer" onclick="openQuickView(${product.id})">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+                        ${product.badge ? `
+                            <span class="absolute top-4 left-4 px-3 py-1 bg-brand-orange text-white text-xs font-bold rounded-full">
+                                ${product.badge}
+                            </span>
+                        ` : ''}
+                        ${product.originalPrice ? `
+                            <span class="absolute top-4 right-4 px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full">
+                                -${Math.round((1 - product.price/product.originalPrice) * 100)}%
+                            </span>
+                        ` : ''}
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <button class="bg-white text-gray-900 px-6 py-3 rounded-full font-bold text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform">
+                                Quick View
+                            </button>
                         </div>
-                        <p class="text-sm font-medium text-[var(--text-light)] mt-auto">${p.desc}</p>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center gap-1 mb-2">
+                            <div class="flex text-brand-orange text-xs">
+                                ${generateStars(product.rating)}
+                            </div>
+                            <span class="text-xs text-gray-400">(${product.reviews})</span>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2 group-hover:text-brand-orange transition-colors cursor-pointer" onclick="openQuickView(${product.id})">
+                            ${product.name}
+                        </h3>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xl font-bold text-brand-orange">$${product.price}</span>
+                                ${product.originalPrice ? `
+                                    <span class="text-sm text-gray-400 line-through">$${product.originalPrice}</span>
+                                ` : ''}
+                            </div>
+                            <button onclick="addToCart(${product.id})" 
+                                    class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-brand-orange hover:text-white transition-all transform active:scale-95">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             `).join('');
         }
 
-        function filterProducts(cat) {
-            currentFilter = cat;
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                if(btn.dataset.filter === cat) {
-                    btn.classList.add('neu-btn', 'active');
-                    btn.classList.remove('text-[var(--text-light)]');
+        function generateStars(rating) {
+            let stars = '';
+            for(let i = 1; i <= 5; i++) {
+                if(i <= rating) stars += '<i class="fas fa-star"></i>';
+                else if(i - 0.5 <= rating) stars += '<i class="fas fa-star-half-alt"></i>';
+                else stars += '<i class="far fa-star"></i>';
+            }
+            return stars;
+        }
+
+        // Filter Functions
+        function filterProducts(category) {
+            currentFilter = category;
+            
+            document.querySelectorAll('.category-pill').forEach(btn => {
+                if(btn.dataset.filter === category) {
+                    btn.classList.add('active');
                 } else {
-                    btn.classList.remove('neu-btn', 'active');
-                    btn.classList.add('text-[var(--text-light)]');
+                    btn.classList.remove('active');
                 }
             });
-            renderProducts();
-        }
-
-        function filterCategory(cat) {
-            document.getElementById('shop').scrollIntoView({behavior: 'smooth'});
-            setTimeout(() => filterProducts(cat), 400);
-        }
-
-        function addToCart(id) {
-            const product = products.find(p => p.id === id);
-            const existing = cart.find(item => item.id === id);
-            if(existing) {
-                existing.qty++;
-                showToast(`Added another ${product.name}`);
-            } else {
-                cart.push({...product, qty: 1});
-                showToast(`${product.name} added to basket`);
-            }
-            updateCart();
             
-            const btn = document.getElementById('cart-btn');
-            btn.classList.add('neu-pressed');
-            setTimeout(() => btn.classList.remove('neu-pressed'), 200);
+            const container = document.getElementById('products-container');
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                renderProducts();
+                container.style.transition = 'all 0.5s ease';
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 200);
         }
 
-        function updateQty(id, change) {
-            const item = cart.find(i => i.id === id);
+        function filterByCategory(category) {
+            document.getElementById('trending').scrollIntoView({behavior: 'smooth'});
+            setTimeout(() => filterProducts(category), 500);
+        }
+
+        // Cart Functions
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId) || {
+                id: 999,
+                name: "Premium Wireless Earbuds Pro",
+                price: 149,
+                image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+            };
+            
+            const existing = cart.find(item => item.id === productId);
+            
+            if(existing) {
+                existing.quantity++;
+            } else {
+                cart.push({...product, quantity: 1});
+            }
+            
+            updateCart();
+            showToast(`${product.name} added to cart!`);
+            
+            // Animate cart badge
+            const badge = document.getElementById('cart-badge');
+            badge.classList.add('scale-125');
+            setTimeout(() => badge.classList.remove('scale-125'), 200);
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
             if(item) {
-                item.qty += change;
-                if(item.qty <= 0) {
-                    cart = cart.filter(i => i.id !== id);
-                    showToast('Item removed');
+                item.quantity += change;
+                if(item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCart();
                 }
-                updateCart();
             }
         }
 
         function updateCart() {
-            const count = cart.reduce((a, b) => a + b.qty, 0);
-            document.getElementById('cart-badge').textContent = count;
+            const badge = document.getElementById('cart-badge');
+            const count = document.getElementById('cart-item-count');
+            const container = document.getElementById('cart-items-container');
+            const subtotal = document.getElementById('cart-subtotal');
+            const total = document.getElementById('cart-total');
             
-            const container = document.getElementById('cart-items');
-            const total = cart.reduce((a, b) => a + (b.price * b.qty), 0);
-            document.getElementById('cart-subtotal').textContent = `$${total.toFixed(2)}`;
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            badge.textContent = totalItems;
+            count.textContent = totalItems;
             
             if(cart.length === 0) {
                 container.innerHTML = `
-                    <div class="h-full flex flex-col justify-center items-center text-[var(--text-light)] py-12">
-                        <div class="w-20 h-20 neu-flat rounded-full flex items-center justify-center mb-6">
-                            <i class="fas fa-shopping-basket text-3xl opacity-30"></i>
+                    <div class="text-center py-12">
+                        <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-shopping-bag text-4xl text-gray-300"></i>
                         </div>
-                        <p class="font-medium mb-2">Your basket is empty</p>
-                        <p class="text-sm opacity-70">Add items to get started</p>
-                        <button onclick="toggleCart(); document.getElementById('shop').scrollIntoView()" class="mt-6 neu-btn px-6 py-3 rounded-xl text-sm font-medium">
-                            Browse Store
+                        <p class="text-gray-500 mb-4">Your cart is empty</p>
+                        <button onclick="toggleCart(); document.getElementById('trending').scrollIntoView({behavior: 'smooth'})" 
+                                class="text-brand-orange font-bold hover:underline">
+                            Start Shopping
                         </button>
                     </div>
                 `;
             } else {
                 container.innerHTML = cart.map(item => `
-                    <div class="neu-flat p-4 rounded-xl mb-4 flex gap-4 items-center">
-                        <img src="${item.image}" class="w-16 h-16 object-cover rounded-lg shadow-inner">
-                        <div class="flex-1 min-w-0">
-                            <h4 class="font-semibold text-[var(--text-dark)] truncate">${item.name}</h4>
-                            <p class="text-sm font-bold text-[var(--accent-warm)] mb-2">$${item.price}</p>
-                            <div class="flex items-center gap-2">
-                                <button onclick="updateQty(${item.id}, -1)" class="w-8 h-8 neu-btn rounded-full flex items-center justify-center text-xs" aria-label="Decrease"><i class="fas fa-minus"></i></button>
-                                <span class="font-semibold w-6 text-center text-[var(--text-dark)]">${item.qty}</span>
-                                <button onclick="updateQty(${item.id}, 1)" class="w-8 h-8 neu-btn rounded-full flex items-center justify-center text-xs" aria-label="Increase"><i class="fas fa-plus"></i></button>
+                    <div class="flex gap-4 bg-gray-50 rounded-xl p-4">
+                        <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-sm mb-1 line-clamp-2">${item.name}</h4>
+                            <p class="text-brand-orange font-bold mb-3">$${item.price}</p>
+                            <div class="flex items-center gap-3">
+                                <button onclick="updateQuantity(${item.id}, -1)" class="quantity-btn w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center hover:border-brand-orange">
+                                    <i class="fas fa-minus text-xs"></i>
+                                </button>
+                                <span class="font-medium w-4 text-center">${item.quantity}</span>
+                                <button onclick="updateQuantity(${item.id}, 1)" class="quantity-btn w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center hover:border-brand-orange">
+                                    <i class="fas fa-plus text-xs"></i>
+                                </button>
+                                <button onclick="removeFromCart(${item.id})" class="ml-auto text-gray-400 hover:text-red-500 transition-colors">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
                             </div>
                         </div>
-                        <button onclick="updateQty(${item.id}, -${item.qty})" class="w-8 h-8 rounded-full flex items-center justify-center text-[var(--text-light)] hover:text-red-500 transition-colors" aria-label="Remove">
-                            <i class="fas fa-times"></i>
-                        </button>
                     </div>
                 `).join('');
             }
+            
+            subtotal.textContent = `$${totalPrice.toFixed(2)}`;
+            total.textContent = `$${totalPrice.toFixed(2)}`;
         }
 
         function toggleCart() {
-            const drawer = document.getElementById('cart-drawer');
+            const sidebar = document.getElementById('cart-sidebar');
             const overlay = document.getElementById('cart-overlay');
             
-            if(drawer.classList.contains('open')) {
-                drawer.classList.remove('open');
-                overlay.classList.remove('opacity-100');
-                setTimeout(() => overlay.classList.add('hidden'), 300);
+            if(sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
             } else {
-                drawer.classList.add('open');
-                overlay.classList.remove('hidden');
-                setTimeout(() => overlay.classList.add('opacity-100'), 10);
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
             }
         }
 
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.className = 'fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-[var(--text-dark)] text-white px-6 py-3 rounded-full shadow-xl z-[200] flex items-center gap-3 animate-[fadeUp_0.3s_ease]';
-            toast.innerHTML = `<i class="fas fa-check-circle text-[var(--success)]"></i><span class="font-medium text-sm">${message}</span>`;
-            document.body.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translate(-50%, 20px)';
-                setTimeout(() => toast.remove(), 300);
-            }, 2500);
+        // Quick View
+        function openQuickView(productId) {
+            const product = products.find(p => p.id === productId);
+            if(!product) return;
+            
+            const modal = document.getElementById('quick-view');
+            const content = document.getElementById('quick-view-content');
+            
+            content.innerHTML = `
+                <div class="aspect-square bg-gray-100">
+                    <img src="${product.image}" class="w-full h-full object-cover" alt="${product.name}">
+                </div>
+                <div class="p-8 md:p-12 flex flex-col justify-center">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-600 uppercase tracking-wider">${product.category}</span>
+                        <div class="flex text-brand-orange text-sm">
+                            ${generateStars(product.rating)}
+                        </div>
+                        <span class="text-sm text-gray-400">${product.reviews} reviews</span>
+                    </div>
+                    
+                    <h2 class="font-display text-3xl font-bold mb-4">${product.name}</h2>
+                    
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-3xl font-bold text-brand-orange">$${product.price}</span>
+                        ${product.originalPrice ? `
+                            <span class="text-xl text-gray-400 line-through">$${product.originalPrice}</span>
+                            <span class="px-2 py-1 bg-red-100 text-red-600 rounded text-sm font-bold">-${Math.round((1 - product.price/product.originalPrice) * 100)}%</span>
+                        ` : ''}
+                    </div>
+                    
+                    <p class="text-gray-600 mb-8 leading-relaxed">${product.description}</p>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center gap-3 text-sm text-gray-600">
+                            <i class="fas fa-check text-green-500"></i>
+                            <span>In Stock - Ships within 24 hours</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm text-gray-600">
+                            <i class="fas fa-shield-alt text-brand-orange"></i>
+                            <span>2-year warranty included</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm text-gray-600">
+                            <i class="fas fa-undo text-brand-orange"></i>
+                            <span>30-day easy returns</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4">
+                        <button onclick="addToCart(${product.id}); closeQuickView();" 
+                                class="flex-1 py-4 bg-brand-dark text-white rounded-xl font-bold hover:bg-brand-orange transition-colors flex items-center justify-center gap-2">
+                            <i class="fas fa-shopping-bag"></i>
+                            Add to Cart
+                        </button>
+                        <button class="w-14 h-14 border-2 border-gray-200 rounded-xl flex items-center justify-center hover:border-red-500 hover:text-red-500 transition-colors">
+                            <i class="fas fa-heart text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
         }
 
-        function handleNewsletter(e) {
+        function closeQuickView() {
+            document.getElementById('quick-view').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        // UI Functions
+        function toggleSearch() {
+            const input = document.getElementById('search-input');
+            input.classList.toggle('active');
+            if(input.classList.contains('active')) {
+                input.focus();
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('translate-x-full');
+        }
+
+        function setupNavbar() {
+            const navbar = document.getElementById('navbar');
+            const logoText = document.getElementById('nav-logo-text');
+            
+            window.addEventListener('scroll', () => {
+                if(window.scrollY > 50) {
+                    navbar.classList.add('glass-nav');
+                    navbar.classList.remove('bg-transparent', 'py-4');
+                    navbar.classList.add('py-2');
+                    logoText.classList.remove('text-white');
+                    logoText.classList.add('text-brand-dark');
+                    
+                    navbar.querySelectorAll('a:not(.mobile-link), button:not(.mobile-btn)').forEach(el => {
+                        if(!el.closest('#mobile-menu')) {
+                            el.classList.remove('text-white/90', 'text-white');
+                            el.classList.add('text-gray-700');
+                        }
+                    });
+                } else {
+                    navbar.classList.remove('glass-nav', 'py-2');
+                    navbar.classList.add('bg-transparent', 'py-4');
+                    logoText.classList.add('text-white');
+                    logoText.classList.remove('text-brand-dark');
+                    
+                    navbar.querySelectorAll('a:not(.mobile-link), button:not(.mobile-btn)').forEach(el => {
+                        if(!el.closest('#mobile-menu')) {
+                            el.classList.add('text-white/90', 'text-white');
+                            el.classList.remove('text-gray-700');
+                        }
+                    });
+                }
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function handleSubscribe(e) {
             e.preventDefault();
             showToast('Welcome to the SwiftCart family!');
             e.target.reset();
         }
 
-        // Add fadeUp animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeUp {
-                from { opacity: 0; transform: translate(-50%, 20px); }
-                to { opacity: 1; transform: translate(-50%, 0); }
+        // Countdown Timer
+        function startCountdown() {
+            let hours = 2, minutes = 45, seconds = 30;
+            
+            setInterval(() => {
+                seconds--;
+                if(seconds < 0) {
+                    seconds = 59;
+                    minutes--;
+                    if(minutes < 0) {
+                        minutes = 59;
+                        hours--;
+                        if(hours < 0) hours = 23;
+                    }
+                }
+                
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            }, 1000);
+        }
+
+        // Close modals on escape
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'Escape') {
+                closeQuickView();
+                const cart = document.getElementById('cart-sidebar');
+                if(cart.classList.contains('open')) toggleCart();
             }
-        `;
-        document.head.appendChild(style);
+        });
     </script>
 </body>
 </html>
